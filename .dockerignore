@@ -1,0 +1,17 @@
+node_modules/
+dist/
+.git/
+.github/
+backup-*/
+screenshots-with-secrets/
+*.log
+*.local
+.env
+.env.*
+!.env.example
+Dockerfile
+docker-compose*.yml
+AI-Workshop-Web.zip
+chrome-dom.txt
+chrome-run.log
+dev-server*.log

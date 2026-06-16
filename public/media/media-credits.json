@@ -1,0 +1,82 @@
+{
+  "slide-08-main": {
+    "localPath": "/media/downloaded/slide-08-ooda-command-center.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:National_Military_Command_Center.jpg",
+    "sourceName": "Wikimedia Commons",
+    "author": "Department of Defense / American Forces Information Service / Defense Visual Information Center",
+    "license": "Public domain in the United States",
+    "reason": "مركز قيادة مناسب لشرح OODA ودورة القرار.",
+    "slide": 8,
+    "slot": "main"
+  },
+  "slide-09-main": {
+    "localPath": "/media/downloaded/slide-09-defense-sensor-fusion.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Command_Center_-_Main_Operations_Room.jpg",
+    "sourceName": "Wikimedia Commons",
+    "author": "Lissia Martinez",
+    "license": "CC BY-SA 4.0",
+    "reason": "غرفة عمليات لشرح دمج البيانات والحساسات.",
+    "slide": 9,
+    "slot": "main"
+  },
+  "slide-10-main": {
+    "localPath": "/media/downloaded/slide-10-surveillance-video-analytics.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:CCTV_control_room_monitor_wall.jpg",
+    "sourceName": "Wikimedia Commons",
+    "author": "Sanderflight",
+    "license": "CC BY-SA 4.0",
+    "reason": "جدار مراقبة فيديو لشرح VMS والتحليل.",
+    "slide": 10,
+    "slot": "main"
+  },
+  "slide-11-main": {
+    "localPath": "/media/downloaded/slide-11-telecom-noc-dashboard.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Batelco_Network_Operations_Centre_(NOC).JPG",
+    "sourceName": "Wikimedia Commons",
+    "author": "Masdestructive",
+    "license": "CC BY-SA 3.0 or GFDL 1.2+",
+    "reason": "Shows a real network operations center for telecom/NOC discussion.",
+    "slide": 11,
+    "slot": "main"
+  },
+  "slide-12-main": {
+    "localPath": "/media/downloaded/slide-12-healthcare-radiology-ai.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ct-workstation-neck.jpg",
+    "sourceName": "Wikimedia Commons",
+    "author": "en:User:ChumpusRex",
+    "license": "CC BY-SA 3.0 or GFDL 1.2+",
+    "reason": "محطة CT workstation لشرح AI في التصوير الطبي.",
+    "slide": 12,
+    "slot": "main"
+  },
+  "slide-14-main": {
+    "localPath": "/media/downloaded/slide-14-data-pipeline.svg",
+    "sourceUrl": null,
+    "sourceName": "Generated locally in project",
+    "author": "Codex-generated SVG for this workshop",
+    "license": "Project-local generated asset",
+    "reason": "Custom diagram is safer and clearer than a generic downloaded data pipeline.",
+    "slide": 14,
+    "slot": "main"
+  },
+  "slide-21-main": {
+    "localPath": "/media/downloaded/slide-21-ai-infrastructure.svg",
+    "sourceUrl": null,
+    "sourceName": "Generated locally in project",
+    "author": "Codex-generated SVG for this workshop",
+    "license": "Project-local generated asset",
+    "reason": "Custom architecture diagram matches the presentation language and visual identity.",
+    "slide": 21,
+    "slot": "main"
+  },
+  "slide-28-main": {
+    "localPath": "/media/downloaded/slide-22-wireless-link-budget.svg",
+    "sourceUrl": null,
+    "sourceName": "Generated locally in project",
+    "author": "Codex-generated SVG for this workshop",
+    "license": "Project-local generated asset",
+    "reason": "Custom wireless link diagram explains FSPL and Rx Power visually.",
+    "slide": 28,
+    "slot": "main"
+  }
+}

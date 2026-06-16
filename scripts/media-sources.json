@@ -1,0 +1,52 @@
+[
+  {
+    "slot": "slide-08-main",
+    "url": "https://commons.wikimedia.org/wiki/Special:FilePath/National%20Military%20Command%20Center.jpg",
+    "filename": "slide-08-ooda-command-center.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:National_Military_Command_Center.jpg",
+    "source": "Wikimedia Commons",
+    "author": "Department of Defense / American Forces Information Service / Defense Visual Information Center",
+    "license": "Public domain in the United States",
+    "caption": "مركز قيادة مناسب لشرح OODA ودورة القرار."
+  },
+  {
+    "slot": "slide-09-main",
+    "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Command%20Center%20-%20Main%20Operations%20Room.jpg",
+    "filename": "slide-09-defense-sensor-fusion.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Command_Center_-_Main_Operations_Room.jpg",
+    "source": "Wikimedia Commons",
+    "author": "Lissia Martinez",
+    "license": "CC BY-SA 4.0",
+    "caption": "غرفة عمليات لشرح دمج البيانات والحساسات."
+  },
+  {
+    "slot": "slide-10-main",
+    "url": "https://commons.wikimedia.org/wiki/Special:FilePath/CCTV%20control%20room%20monitor%20wall.jpg",
+    "filename": "slide-10-surveillance-video-analytics.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:CCTV_control_room_monitor_wall.jpg",
+    "source": "Wikimedia Commons",
+    "author": "Sanderflight",
+    "license": "CC BY-SA 4.0",
+    "caption": "جدار مراقبة فيديو لشرح VMS والتحليل."
+  },
+  {
+    "slot": "slide-11-main",
+    "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Batelco%20Network%20Operations%20Centre%20%28NOC%29.JPG",
+    "filename": "slide-11-telecom-noc-dashboard.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Batelco_Network_Operations_Centre_(NOC).JPG",
+    "source": "Wikimedia Commons",
+    "author": "Masdestructive",
+    "license": "CC BY-SA 3.0 or GFDL 1.2+",
+    "caption": "مركز تشغيل شبكات NOC."
+  },
+  {
+    "slot": "slide-12-main",
+    "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Ct-workstation-neck.jpg",
+    "filename": "slide-12-healthcare-radiology-ai.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ct-workstation-neck.jpg",
+    "source": "Wikimedia Commons",
+    "author": "en:User:ChumpusRex",
+    "license": "CC BY-SA 3.0 or GFDL 1.2+",
+    "caption": "محطة CT workstation لشرح AI في التصوير الطبي."
+  }
+]

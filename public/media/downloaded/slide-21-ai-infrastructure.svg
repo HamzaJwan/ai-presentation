@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 820" direction="rtl">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#071426"/><stop offset="1" stop-color="#163c42"/></linearGradient>
+    <linearGradient id="edge" x1="0" x2="1"><stop offset="0" stop-color="#f4c84a"/><stop offset="1" stop-color="#5fffe0"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="1400" height="820" rx="46" fill="url(#bg)"/>
+  <g opacity=".13" stroke="#65ffe0">
+    <path d="M90 150h1220M90 285h1220M90 420h1220M90 555h1220M90 690h1220"/>
+    <path d="M210 95v630M410 95v630M610 95v630M810 95v630M1010 95v630M1210 95v630"/>
+  </g>
+  <text x="700" y="92" fill="#f4f8ff" text-anchor="middle" font-family="Tahoma, Arial" font-weight="800" font-size="48">البنية التحتية لتشغيل AI</text>
+  <text x="700" y="137" fill="#b9c8d7" text-anchor="middle" font-family="Tahoma, Arial" font-size="25">Data → Compute → Model → App → Monitoring</text>
+  <g font-family="Tahoma, Arial" text-anchor="middle">
+    <g transform="translate(120,250)">
+      <rect width="210" height="250" rx="28" fill="#1d2d42" stroke="#4ee8cf"/>
+      <circle cx="105" cy="72" r="38" fill="#0c1d30" stroke="#5fffe0"/>
+      <text x="105" y="84" fill="#5fffe0" font-size="46">D</text>
+      <text x="105" y="150" fill="#fff" font-size="31" font-weight="800">البيانات</text>
+      <text x="105" y="192" fill="#c7d4df" font-size="20">مصادر آمنة وجودة</text>
+    </g>
+    <path d="M350 375h112" stroke="url(#edge)" stroke-width="8" stroke-linecap="round" filter="url(#glow)"/>
+    <g transform="translate(475,250)">
+      <rect width="210" height="250" rx="28" fill="#1d2d42" stroke="#f4c84a"/>
+      <rect x="54" y="43" width="102" height="70" rx="14" fill="#0c1d30" stroke="#f4c84a"/>
+      <path d="M74 130h62M74 150h62" stroke="#5fffe0" stroke-width="8" stroke-linecap="round"/>
+      <text x="105" y="190" fill="#fff" font-size="31" font-weight="800">الحوسبة</text>
+      <text x="105" y="225" fill="#c7d4df" font-size="20">GPU / Cloud</text>
+    </g>
+    <path d="M705 375h112" stroke="url(#edge)" stroke-width="8" stroke-linecap="round" filter="url(#glow)"/>
+    <g transform="translate(830,250)">
+      <rect width="210" height="250" rx="28" fill="#1d2d42" stroke="#4ee8cf"/>
+      <circle cx="78" cy="85" r="25" fill="#5fffe0"/><circle cx="132" cy="85" r="25" fill="#f4c84a"/><path d="M98 85h15" stroke="#fff" stroke-width="8"/>
+      <text x="105" y="172" fill="#fff" font-size="31" font-weight="800">النموذج</text>
+      <text x="105" y="212" fill="#c7d4df" font-size="20">Training / RAG</text>
+    </g>
+    <path d="M1060 375h112" stroke="url(#edge)" stroke-width="8" stroke-linecap="round" filter="url(#glow)"/>
+    <g transform="translate(1185,250)">
+      <rect width="170" height="250" rx="28" fill="#1d2d42" stroke="#4ee8cf"/>
+      <rect x="43" y="47" width="84" height="68" rx="14" fill="#0c1d30" stroke="#5fffe0"/>
+      <text x="85" y="178" fill="#fff" font-size="31" font-weight="800">التطبيق</text>
+      <text x="85" y="216" fill="#c7d4df" font-size="19">Users</text>
+    </g>
+  </g>
+  <g transform="translate(255,585)" font-family="Tahoma, Arial">
+    <rect width="890" height="100" rx="28" fill="#0b1b2e" stroke="#365b70"/>
+    <text x="845" y="42" fill="#f4c84a" text-anchor="end" font-size="26" font-weight="800">طبقة الحوكمة والمراقبة</text>
+    <text x="845" y="75" fill="#c7d4df" text-anchor="end" font-size="22">صلاحيات، سجلات، أمن شبكي، قياس جودة، ومراجعة بشرية مستمرة</text>
+  </g>
+</svg>

@@ -1,0 +1,19 @@
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+.DS_Store
+*.log
+chrome-dom.txt
+backup-*/
+screenshots-with-secrets/
+*.local
+
+# Keep deployment/static assets tracked
+!public/media/
+!public/config/site-config.json
+!deploy/
+!Dockerfile
+!docker-compose.local.yml
+!nginx.conf

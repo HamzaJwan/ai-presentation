@@ -1,0 +1,16 @@
+services:
+  ai-presentation:
+    image: ghcr.io/hamzajwan/ai-presentation:${IMAGE_TAG:-latest}
+    container_name: ai-presentation
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT:-4561}:80"
+    environment:
+      - NODE_ENV=production
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1/healthz || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    labels:
+      - "com.centurylinklabs.watchtower.enable=${WATCHTOWER_ENABLE:-false}"

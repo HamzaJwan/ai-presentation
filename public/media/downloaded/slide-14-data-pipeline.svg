@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 820" direction="rtl">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#0b1728"/>
+      <stop offset="1" stop-color="#183a40"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" x2="1">
+      <stop offset="0" stop-color="#f4c84a"/>
+      <stop offset="1" stop-color="#5fffe0"/>
+    </linearGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0.35 0 0 0 0 1 0 0 0 0 0.88 0 0 0 .8 0"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1400" height="820" rx="46" fill="url(#bg)"/>
+  <g opacity=".16" stroke="#64ffe1">
+    <path d="M120 150h1160M120 300h1160M120 450h1160M120 600h1160"/>
+    <path d="M190 90v640M390 90v640M590 90v640M790 90v640M990 90v640M1190 90v640"/>
+  </g>
+  <text x="700" y="95" text-anchor="middle" fill="#eef6ff" font-family="Tahoma, Arial" font-size="48" font-weight="800">مسار البيانات إلى قرار موثوق</text>
+  <text x="700" y="143" text-anchor="middle" fill="#b8c7d6" font-family="Tahoma, Arial" font-size="26">جمع ← تنظيف ← تصنيف ← تدريب / استرجاع ← مراجعة بشرية ← قرار</text>
+  <g transform="translate(105,245)" font-family="Tahoma, Arial" text-anchor="middle">
+    <g filter="url(#glow)">
+      <path d="M105 110h155q36 0 36 36v92q0 36-36 36H105q-36 0-36-36v-92q0-36 36-36z" fill="#1f3148" stroke="#5fffe0"/>
+      <text x="182" y="180" fill="#fff" font-size="30" font-weight="800">جمع</text>
+      <text x="182" y="223" fill="#c4d1dd" font-size="20">Sensors / Reports</text>
+    </g>
+    <path d="M310 190h94" stroke="url(#accent)" stroke-width="10" stroke-linecap="round"/>
+    <path d="M402 190l-28-18v36z" fill="#5fffe0"/>
+    <g>
+      <path d="M450 110h155q36 0 36 36v92q0 36-36 36H450q-36 0-36-36v-92q0-36 36-36z" fill="#1d2d42" stroke="#5fffe0"/>
+      <text x="527" y="180" fill="#fff" font-size="30" font-weight="800">تنظيف</text>
+      <text x="527" y="223" fill="#c4d1dd" font-size="20">Quality / Noise</text>
+    </g>
+    <path d="M655 190h94" stroke="url(#accent)" stroke-width="10" stroke-linecap="round"/>
+    <path d="M747 190l-28-18v36z" fill="#5fffe0"/>
+    <g>
+      <path d="M795 110h155q36 0 36 36v92q0 36-36 36H795q-36 0-36-36v-92q0-36 36-36z" fill="#1d2d42" stroke="#f4c84a"/>
+      <text x="872" y="180" fill="#fff" font-size="30" font-weight="800">تصنيف</text>
+      <text x="872" y="223" fill="#c4d1dd" font-size="20">Labels / Context</text>
+    </g>
+    <path d="M1000 190h94" stroke="url(#accent)" stroke-width="10" stroke-linecap="round"/>
+    <path d="M1092 190l-28-18v36z" fill="#5fffe0"/>
+    <g>
+      <path d="M1140 110h155q36 0 36 36v92q0 36-36 36h-155q-36 0-36-36v-92q0-36 36-36z" fill="#22364c" stroke="#5fffe0"/>
+      <text x="1217" y="180" fill="#fff" font-size="30" font-weight="800">قرار</text>
+      <text x="1217" y="223" fill="#c4d1dd" font-size="20">Human Review</text>
+    </g>
+  </g>
+  <g transform="translate(185,610)" fill="none" stroke-width="3">
+    <rect x="0" y="0" width="1030" height="86" rx="22" fill="#0c1a2d" stroke="#31556c"/>
+    <path d="M42 43h946" stroke="#263b53"/>
+    <circle cx="110" cy="43" r="15" fill="#5fffe0"/>
+    <circle cx="330" cy="43" r="15" fill="#5fffe0"/>
+    <circle cx="550" cy="43" r="15" fill="#f4c84a"/>
+    <circle cx="770" cy="43" r="15" fill="#5fffe0"/>
+    <circle cx="950" cy="43" r="15" fill="#f4c84a"/>
+  </g>
+</svg>

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 820" direction="rtl">
+  <defs>
+    <linearGradient id="sky" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#071426"/><stop offset="1" stop-color="#123b42"/></linearGradient>
+    <linearGradient id="wave" x1="0" x2="1"><stop offset="0" stop-color="#f4c84a"/><stop offset="1" stop-color="#5fffe0"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="9" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="1400" height="820" rx="46" fill="url(#sky)"/>
+  <g opacity=".16" stroke="#61ffe3">
+    <path d="M130 610h1140M130 220h1140M130 415h1140"/>
+    <path d="M260 120v560M500 120v560M740 120v560M980 120v560M1220 120v560"/>
+  </g>
+  <text x="700" y="92" text-anchor="middle" fill="#fff" font-family="Tahoma, Arial" font-size="48" font-weight="800">Wireless Link Budget</text>
+  <text x="700" y="140" text-anchor="middle" fill="#c8d5df" font-family="Tahoma, Arial" font-size="26">FSPL + Antenna Gain + Cable Losses → Rx Power</text>
+  <g fill="none" stroke="url(#wave)" stroke-width="8" stroke-linecap="round" filter="url(#glow)">
+    <path d="M410 370C540 245 860 245 990 370"/>
+    <path d="M470 405C585 315 815 315 930 405" opacity=".72"/>
+    <path d="M535 442C625 385 775 385 865 442" opacity=".45"/>
+  </g>
+  <g stroke="#edf6ff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M300 650l95-365 95 365"/>
+    <path d="M350 455h90M330 525h130M315 595h160"/>
+    <path d="M910 650l95-365 95 365"/>
+    <path d="M960 455h90M940 525h130M925 595h160"/>
+  </g>
+  <g font-family="Tahoma, Arial" text-anchor="middle">
+    <rect x="235" y="660" width="225" height="62" rx="20" fill="#1f3148" stroke="#5fffe0"/>
+    <text x="347" y="700" fill="#fff" font-size="28" font-weight="800">Tx Site</text>
+    <rect x="940" y="660" width="225" height="62" rx="20" fill="#1f3148" stroke="#5fffe0"/>
+    <text x="1052" y="700" fill="#fff" font-size="28" font-weight="800">Rx Site</text>
+    <rect x="525" y="542" width="350" height="86" rx="22" fill="#0b1b2e" stroke="#f4c84a"/>
+    <text x="700" y="580" fill="#f4c84a" font-size="27" font-weight="800">FSPL(dB)</text>
+    <text x="700" y="613" fill="#c8d5df" font-size="20">32.44 + 20log10(d) + 20log10(f)</text>
+  </g>
+  <g font-family="Tahoma, Arial" fill="#5fffe0" font-size="24" font-weight="800">
+    <text x="250" y="260">Tx Power</text>
+    <text x="250" y="298">Tx Gain</text>
+    <text x="1040" y="260">Rx Gain</text>
+    <text x="1040" y="298">Rx Power</text>
+  </g>
+</svg>
