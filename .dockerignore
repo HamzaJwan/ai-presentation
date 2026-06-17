@@ -3,7 +3,13 @@ dist/
 .git/
 .github/
 backup-*/
+backups/
 screenshots-with-secrets/
+screenshots/
+runtime-data/
+data/
+exports/
+secrets/
 *.log
 *.local
 .env
@@ -12,6 +18,10 @@ screenshots-with-secrets/
 Dockerfile
 docker-compose*.yml
 AI-Workshop-Web.zip
+*.zip
+*.pptx
+*.pdf
+*.docx
 chrome-dom.txt
 chrome-run.log
 dev-server*.log
