@@ -97,6 +97,32 @@ APP_PORT=4561
 WATCHTOWER_ENABLE=false
 ```
 
+## تجهيز التخزين للإنتاج (Ubuntu 24.04)
+
+لتجهيز مجلدات التخزين الصحيحة للـ Bind Mount في الإنتاج (`/opt/Appdata/ai_presentation`)، قم بتشغيل السكربت التالي على الخادم:
+
+```bash
+bash deploy/portainer/prepare-production-storage.sh
+```
+
+أو إنشاء المجلدات يدوياً:
+
+```bash
+sudo mkdir -p /opt/Appdata/ai_presentation/appdata/content
+sudo mkdir -p /opt/Appdata/ai_presentation/appdata/media
+sudo mkdir -p /opt/Appdata/ai_presentation/backups
+sudo mkdir -p /opt/Appdata/ai_presentation/logs
+sudo mkdir -p /opt/Appdata/ai_presentation/exports
+sudo chown -R $USER:$USER /opt/Appdata/ai_presentation
+chmod -R 755 /opt/Appdata/ai_presentation
+```
+
+ثم انسخ محتوى العرض من جهازك المحلي:
+```bash
+scp -r runtime-data/content jwan@172.31.1.70:/opt/Appdata/ai_presentation/appdata/
+scp -r runtime-data/media jwan@172.31.1.70:/opt/Appdata/ai_presentation/appdata/
+```
+
 ## Cloudflare Tunnel
 
 Public hostname:

@@ -11,7 +11,7 @@ services:
       - ENABLE_ADMIN_API=${ENABLE_ADMIN_API:-true}
       - ADMIN_TOKEN=${ADMIN_TOKEN:-change-me}
     volumes:
-      - ai-presentation-data:/app/data
+      - /opt/Appdata/ai_presentation/appdata:/app/data
     healthcheck:
       test: ["CMD-SHELL", "wget -qO- http://127.0.0.1/healthz || exit 1"]
       interval: 30s
@@ -19,6 +19,3 @@ services:
       retries: 3
     labels:
       - "com.centurylinklabs.watchtower.enable=${WATCHTOWER_ENABLE:-false}"
-
-volumes:
-  ai-presentation-data:
