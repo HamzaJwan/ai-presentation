@@ -7,14 +7,18 @@
     "dev": "vite --host 0.0.0.0",
     "build": "vite build",
     "preview": "vite preview --host 0.0.0.0",
+    "start": "node server/index.js",
     "download:media": "node scripts/download-media.js"
   },
   "dependencies": {
     "@react-three/fiber": "^9.4.0",
     "@vitejs/plugin-react": "^4.7.0",
+    "archiver": "^8.0.0",
+    "express": "^5.2.1",
     "gsap": "^3.14.2",
     "lucide-react": "^0.562.0",
     "motion": "^12.26.0",
+    "multer": "^2.2.0",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "three": "^0.182.0",

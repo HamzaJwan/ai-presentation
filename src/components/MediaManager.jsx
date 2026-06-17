@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import { FolderOpen, ImagePlus, Link, Sparkles, Trash2, Upload } from 'lucide-react';
+import { saveSettings, uploadMediaFile } from '../utils/adminApi.js';
 
 const slots = ['main', 'thumb-1', 'thumb-2', 'thumb-3', 'logo'];
 const alignOptions = ['center', 'top', 'bottom', 'left', 'right'];
@@ -22,6 +23,22 @@ function mediaKey(slideId, slot) {
   return `slide-${String(slideId).padStart(2, '0')}-${slot}`;
 }
 
+function extensionFromFile(file) {
+  const fromName = file?.name?.split('.').pop()?.toLowerCase();
+  if (fromName && /^[a-z0-9]+$/.test(fromName)) return fromName === 'jpeg' ? 'jpg' : fromName;
+  if (file?.type === 'image/png') return 'png';
+  if (file?.type === 'image/webp') return 'webp';
+  if (file?.type === 'image/gif') return 'gif';
+  if (file?.type === 'video/mp4') return 'mp4';
+  if (file?.type === 'video/webm') return 'webm';
+  return 'jpg';
+}
+
+function mediaFileName(slideId, slot, file) {
+  if (slot === 'logo') return `logo.${extensionFromFile(file)}`;
+  return `${mediaKey(slideId, slot)}.${extensionFromFile(file)}`;
+}
+
 export default function MediaManager({
   slides,
   mediaMap,
@@ -30,6 +47,8 @@ export default function MediaManager({
   setMediaMap,
   settings,
   setSettings,
+  brand = 'generic',
+  onRefreshContent,
   onClose
 }) {
   const [slideId, setSlideId] = useState(slides[0]?.id || 1);
@@ -41,6 +60,7 @@ export default function MediaManager({
   const [glow, setGlow] = useState(settings.imageGlow || 'medium');
   const [tint, setTint] = useState(0.12);
   const [message, setMessage] = useState('');
+  const [projectMediaDir, setProjectMediaDir] = useState(null);
 
   const selectedSlide = slides.find((slide) => slide.id === slideId) || slides[0];
   const key = useMemo(() => mediaKey(slideId, slot), [slideId, slot]);
@@ -49,9 +69,66 @@ export default function MediaManager({
 
   async function uploadLogo(file) {
     if (!file) return;
+    try {
+      const result = await uploadMediaFile({ file, slideId: 0, slot: 'logo', brand, caption: 'Logo', fit: 'contain', align: 'center', tint: 0, glow: 'soft' });
+      const logoSrc = result.media.url;
+      const nextSettings = { ...settings, logoSrc, logoVisible: true, logoScope: settings.logoScope || 'all' };
+      setSettings(nextSettings);
+      await saveSettings({ brands: { [brand]: nextSettings }, global: nextSettings });
+      setMessage(`تم حفظ اللوقو دائمًا داخل data/media باسم ${result.media.id}.`);
+      return;
+    } catch {
+      // في الوضع الثابت نستخدم التخزين المؤقت القديم.
+    }
     const src = await fileToDataUrl(file);
     setSettings((value) => ({ ...value, logoSrc: src, logoVisible: true, logoScope: value.logoScope || 'all' }));
     setMessage('تم حفظ اللوقو محليًا وتفعيله في العرض.');
+  }
+
+  async function selectProjectMediaFolder() {
+    if (!window.showDirectoryPicker) {
+      setMessage('متصفحك لا يدعم الحفظ المباشر في مجلد المشروع. استخدم Chrome أو Edge.');
+      return null;
+    }
+
+    try {
+      const directory = await window.showDirectoryPicker({ mode: 'readwrite' });
+      setProjectMediaDir(directory);
+      setMessage('تم ربط مجلد الوسائط. أي صورة ترفعها الآن سيتم نسخها داخل هذا المجلد تلقائيًا.');
+      return directory;
+    } catch {
+      setMessage('لم يتم اختيار مجلد. اختر مجلد AI-Workshop-Web/public/media عند الحاجة للحفظ الدائم.');
+      return null;
+    }
+  }
+
+  async function saveToProjectFolder(file, targetName, dataUrl) {
+    try {
+      const response = await fetch('/__media-upload', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ fileName: targetName, dataUrl })
+      });
+      const result = await response.json().catch(() => null);
+      if (response.ok && result?.ok && result.url) {
+        return { ok: true, src: result.url, mode: 'vite' };
+      }
+    } catch {
+      // إذا كان العرض يعمل من Docker/static فلن يوجد API، ننتقل لخيار مجلد المتصفح.
+    }
+
+    const directory = projectMediaDir || (await selectProjectMediaFolder());
+    if (!directory) return { ok: false, src: dataUrl, mode: 'memory' };
+
+    try {
+      const handle = await directory.getFileHandle(targetName, { create: true });
+      const writable = await handle.createWritable();
+      await writable.write(file);
+      await writable.close();
+      return { ok: true, src: dataUrl, mode: 'folder' };
+    } catch {
+      return { ok: false, src: dataUrl, mode: 'memory' };
+    }
   }
 
   async function assignFile(file) {
@@ -62,11 +139,35 @@ export default function MediaManager({
     }
 
     try {
+      try {
+        const result = await uploadMediaFile({ file, slideId, slot, brand, caption, fit, align, tint, glow });
+        const media = result.media;
+        setMediaMap((map) => ({
+          ...map,
+          [key]: {
+            src: media.url,
+            type: media.type,
+            caption: media.caption,
+            fit: media.fit,
+            align: media.align,
+            tint: media.tint,
+            glow: media.glow
+          }
+        }));
+        await onRefreshContent?.();
+        setMessage(`تم رفع الملف وحفظه دائمًا داخل data/media باسم ${media.id}.`);
+        return;
+      } catch {
+        // إذا لم يكن خادم الحفظ الدائم متاحًا نستخدم الخطة المحلية القديمة.
+      }
+
       const src = await fileToDataUrl(file);
+      const targetName = mediaFileName(slideId, slot, file);
+      const saved = await saveToProjectFolder(file, targetName, src);
       setMediaMap((map) => ({
         ...map,
         [key]: {
-          src,
+          src: saved.src,
           type: mediaType(src, file.type),
           caption: caption || file.name,
           fit,
@@ -75,7 +176,13 @@ export default function MediaManager({
           glow
         }
       }));
-      setMessage('تم حفظ الوسائط لهذه الشريحة. للفيديوهات الكبيرة استخدم public/media بدل التخزين المحلي.');
+      if (saved.mode === 'vite') {
+        setMessage(`تم حفظ الملف داخل public/media باسم ${targetName} وربطه بالشريحة.`);
+      } else if (saved.mode === 'folder') {
+        setMessage(`تم نسخ الملف داخل المجلد باسم ${targetName}. سيظهر الآن من الذاكرة، وبعد إعادة بناء Docker سيُقرأ من public/media.`);
+      } else {
+        setMessage('تم عرض الملف مؤقتًا فقط. للحفظ داخل المشروع اربط مجلد AI-Workshop-Web/public/media ثم ارفع الصورة مرة أخرى.');
+      }
     } catch {
       setMessage('تعذر قراءة الملف. جرّب ملفًا آخر أو ضع الملف يدويًا داخل public/media.');
     }
@@ -214,6 +321,10 @@ export default function MediaManager({
             <span>اسحب صورة/فيديو هنا أو اضغط للاختيار</span>
             <input type="file" accept="image/*,video/mp4,video/webm" onChange={(event) => assignFile(event.target.files?.[0])} />
           </label>
+          <button type="button" className="folder-link-button" onClick={selectProjectMediaFolder}>
+            <FolderOpen /> ربط مجلد public/media للحفظ التلقائي
+          </button>
+          {projectMediaDir && <p className="media-hint good">مجلد الحفظ مربوط الآن. سيتم نسخ الملفات المرفوعة داخل ملفات المشروع.</p>}
 
           <div className="url-row">
             <input value={url} onChange={(event) => setUrl(event.target.value)} placeholder="رابط صورة أو فيديو اختياري" />

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Film, Image, Sparkles } from 'lucide-react';
+import { Icon } from './iconMap.jsx';
 
 const imageExtensions = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
 const videoExtensions = ['mp4', 'webm'];
@@ -34,7 +35,7 @@ function useConventionMedia(slideId, slot) {
             return;
           }
         } catch {
-          // تجاهل المحاولات الفاشلة والانتقال للمرشح التالي
+          // نتجاهل المحاولة وننتقل للامتداد التالي.
         }
       }
       if (alive) setFound(null);
@@ -50,21 +51,142 @@ function useConventionMedia(slideId, slot) {
 }
 
 function Placeholder({ slide, slot }) {
+  const fileName = `public/media/slide-${String(slide.id).padStart(2, '0')}-${slot}.jpg`;
+
+  if (slot === 'main') {
+    const diagram = diagramBySlideId[slide.id];
+    if (diagram) return <InternalDiagram slide={slide} diagram={diagram} />;
+  }
+
   return (
     <div className="image-placeholder">
       <div className="placeholder-orbit">
         {slot === 'main' ? <Image size={44} /> : <Film size={42} />}
         <Sparkles size={22} />
       </div>
-      <p>[مساحة الصورة: أضف هنا {slide.imageHint || 'صورة أو فيديو مناسب لمحتوى الشريحة'}]</p>
-      <small>اسم الملف المقترح: public/media/slide-{String(slide.id).padStart(2, '0')}-{slot}.jpg أو .mp4</small>
+      <p>[مساحة صورة/فيديو: {slide.imageHint || 'أضف صورة مناسبة لمحتوى الشريحة'}]</p>
+      <small>الاسم المقترح: {fileName} أو .png أو .mp4</small>
     </div>
   );
 }
 
-function MediaSlot({ slide, slot, mediaMap, settings, onOpen }) {
+const diagramBySlideId = {
+  8: {
+    title: 'OODA داخل العمل الحديث',
+    stages: [
+      ['Radar', 'Observe', 'رصد الإشارات'],
+      ['BrainCircuit', 'Orient', 'فهم السياق'],
+      ['Scale', 'Decide', 'اختيار القرار'],
+      ['Zap', 'Act', 'تنفيذ ومتابعة']
+    ]
+  },
+  9: {
+    title: 'Sensor Fusion إلى قرار',
+    stages: [
+      ['Radar', 'حساسات', 'رادار وفيديو وخرائط'],
+      ['Database', 'دمج بيانات', 'تنظيف وربط'],
+      ['PanelsTopLeft', 'لوحة عمليات', 'صورة مشتركة'],
+      ['ShieldCheck', 'قرار', 'مراجعة بشرية']
+    ]
+  },
+  10: {
+    title: 'Video Analytics',
+    stages: [
+      ['Camera', 'كاميرات', 'تدفق فيديو'],
+      ['ScanEye', 'تحليل', 'كشف أحداث'],
+      ['SearchCheck', 'بحث', 'وقت ومكان'],
+      ['LockKeyhole', 'حوكمة', 'صلاحيات وسجلات']
+    ]
+  },
+  11: {
+    title: 'NOC / Network Dashboard',
+    stages: [
+      ['Wifi', 'أجهزة', 'حالة الشبكة'],
+      ['Activity', 'قياسات', 'تجربة المستخدم'],
+      ['LineChart', 'اتجاهات', 'تحليل أعطال'],
+      ['Wrench', 'إجراء', 'تحسين الخدمة']
+    ]
+  },
+  12: {
+    title: 'Medical Imaging Workflow',
+    stages: [
+      ['ScanSearch', 'صورة أشعة', 'CT / Radiology'],
+      ['HeartPulse', 'فرز', 'حالات حرجة'],
+      ['UserCheck', 'طبيب', 'مراجعة قرار'],
+      ['ClipboardCheck', 'مسار عمل', 'متابعة الحالة']
+    ]
+  },
+  15: {
+    title: 'Public vs Protected AI',
+    stages: [
+      ['CloudCog', 'Public', 'تعلم وتجارب عامة'],
+      ['ShieldCheck', 'Protected', 'بيانات حساسة'],
+      ['Lock', 'سياسات', 'صلاحيات وسجلات'],
+      ['Server', 'بيئة', 'تشغيل مناسب']
+    ]
+  },
+  18: {
+    title: 'Risk Pipeline',
+    stages: [
+      ['Database', 'بيانات', 'مصدر وتدريب'],
+      ['Cpu', 'نموذج', 'استدلال'],
+      ['MessageSquareText', 'سؤال', 'سياق ومدخلات'],
+      ['Scale', 'قرار', 'مراجعة بشرية']
+    ]
+  },
+  20: {
+    title: 'بناء نموذج لهجات محلي',
+    stages: [
+      ['Languages', 'لهجات متعددة', 'تنوع نطق وكتابة'],
+      ['Mic', 'تسجيل صوتي', 'عينات مرخصة'],
+      ['FileText', 'تفريغ', 'تحويل الكلام لنص'],
+      ['DatabaseZap', 'تنظيف بيانات', 'وسم وتدقيق'],
+      ['BadgeCheck', 'اختبار جودة', 'قياس وتحسين']
+    ]
+  },
+  22: {
+    title: 'Wireless + Codex',
+    stages: [
+      ['RadioTower', 'وصلة لاسلكية', 'مسافة وتردد'],
+      ['Calculator', 'معادلات', 'FSPL وRx Power'],
+      ['Code2', 'Codex', 'تحويلها إلى كود'],
+      ['PanelsTopLeft', 'Web App', 'اختبار مباشر']
+    ]
+  },
+  23: {
+    title: 'خيارات تشغيل AI',
+    stages: [
+      ['CloudCog', 'Cloud', 'مرونة وتجارب'],
+      ['Server', 'On‑Prem', 'سيطرة وبيانات'],
+      ['Cpu', 'Edge', 'استجابة قريبة'],
+      ['LockKeyhole', 'Air‑Gapped', 'حساسية عالية']
+    ]
+  }
+};
+
+function InternalDiagram({ slide, diagram }) {
+  return (
+    <div className="internal-diagram" role="img" aria-label={diagram.title || slide.title}>
+      <strong>{diagram.title || slide.title}</strong>
+      <div className="internal-diagram-flow">
+        {diagram.stages.map(([icon, title, body], index) => (
+          <div className="internal-diagram-node" key={`${title}-${index}`}>
+            <span>
+              <Icon name={icon} size={30} />
+            </span>
+            <b>{title}</b>
+            <small>{body}</small>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function MediaSlot({ slide, slot, mediaMap, settings, onOpen, hideWhenEmpty = false }) {
   const key = `slide-${String(slide.id).padStart(2, '0')}-${slot}`;
   const conventionMedia = useConventionMedia(slide.id, slot);
+  const [hasError, setHasError] = useState(false);
   const assigned = mediaMap?.[key];
   const media = useMemo(() => {
     if (assigned?.src) {
@@ -75,11 +197,21 @@ function MediaSlot({ slide, slot, mediaMap, settings, onOpen }) {
     return null;
   }, [assigned, conventionMedia, slide.image, slot]);
 
+  useEffect(() => {
+    setHasError(false);
+  }, [media?.src]);
+
+  if (hasError) {
+    if (hideWhenEmpty) return null;
+    return <Placeholder slide={slide} slot={slot} />;
+  }
+
+  if (!media && hideWhenEmpty) return null;
   if (!media) return <Placeholder slide={slide} slot={slot} />;
 
   const fit = media.fit || settings?.defaultFit || 'cover';
   const alignment = media.align || 'center';
-  const tint = Number(media.tint ?? 0.16);
+  const tint = Number(media.tint ?? 0.08);
   const rounded = media.rounded !== false;
   const glow = media.glow || settings?.imageGlow || 'medium';
   const isVideo = media.type === 'video';
@@ -92,9 +224,9 @@ function MediaSlot({ slide, slot, mediaMap, settings, onOpen }) {
       title="اضغط لتكبير الوسائط"
     >
       {isVideo ? (
-        <video src={media.src} autoPlay muted loop playsInline />
+        <video src={media.src} autoPlay muted loop playsInline style={{ objectFit: fit }} onError={() => setHasError(true)} />
       ) : (
-        <img src={media.src} alt={media.caption || slide.title} style={{ objectFit: fit }} />
+        <img src={media.src} alt={media.caption || slide.title} style={{ objectFit: fit }} onError={() => setHasError(true)} />
       )}
       <span className="media-tint" style={{ opacity: tint }} />
       <span className="media-caption">{media.caption || (isVideo ? 'فيديو توضيحي' : 'صورة توضيحية')}</span>
@@ -118,6 +250,7 @@ export default function ImagePlaceholder({ slide, mediaMap, settings, onOpenLigh
               mediaMap={mediaMap}
               settings={settings}
               onOpen={onOpenLightbox}
+              hideWhenEmpty
             />
           ))}
         </div>

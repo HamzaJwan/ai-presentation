@@ -9,6 +9,11 @@ chrome-dom.txt
 backup-*/
 screenshots-with-secrets/
 *.local
+runtime-data/
+data/
+exports/
+*.db
+*.sqlite
 
 # Keep deployment/static assets tracked
 !public/media/
