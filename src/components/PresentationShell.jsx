@@ -14,6 +14,8 @@ import ProgressBar from './ProgressBar.jsx';
 import SlideControls from './SlideControls.jsx';
 import SlideRenderer from './SlideRenderer.jsx';
 
+const globalPreloadedImages = new Set();
+
 const defaultSettings = {
   logoSrc: '',
   logoVisible: false,
@@ -269,6 +271,51 @@ export default function PresentationShell() {
     nextParams.set('slideOnly', '1');
     window.location.href = `${window.location.origin}${window.location.pathname}?${nextParams.toString()}`;
   }, []);
+
+  useEffect(() => {
+    const preloadImage = (src) => {
+      if (!src || globalPreloadedImages.has(src)) return;
+      globalPreloadedImages.add(src);
+      const img = new Image();
+      img.src = src;
+    };
+
+    const slidesToPreload = [
+      activeSlides[safeIndex],
+      activeSlides[safeIndex + 1],
+      activeSlides[safeIndex - 1]
+    ];
+
+    if (isAudience) {
+      activeSlides.forEach((slide, i) => {
+        if (!slidesToPreload.includes(slide)) {
+          setTimeout(() => {
+            const slots = ['main', 'thumb-1', 'thumb-2'];
+            slots.forEach((slot) => {
+              const key = `slide-${String(slide.id).padStart(2, '0')}-${slot}`;
+              const media = effectiveMediaMap[key];
+              if (media?.src && media.type !== 'video') preloadImage(media.src);
+              else if (!media && slot === 'main' && slide.image) preloadImage(slide.image);
+            });
+          }, 500 + i * 100);
+        }
+      });
+    }
+
+    const timer = setTimeout(() => {
+      slidesToPreload.filter(Boolean).forEach((slide) => {
+        const slots = ['main', 'thumb-1', 'thumb-2'];
+        slots.forEach((slot) => {
+          const key = `slide-${String(slide.id).padStart(2, '0')}-${slot}`;
+          const media = effectiveMediaMap[key];
+          if (media?.src && media.type !== 'video') preloadImage(media.src);
+          else if (!media && slot === 'main' && slide.image) preloadImage(slide.image);
+        });
+      });
+    }, 50);
+
+    return () => clearTimeout(timer);
+  }, [activeSlides, safeIndex, effectiveMediaMap, isAudience]);
 
   useEffect(() => {
     channel.current = new BroadcastChannel('ai-workshop-presentation');

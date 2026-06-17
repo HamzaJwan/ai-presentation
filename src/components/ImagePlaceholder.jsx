@@ -187,6 +187,8 @@ function MediaSlot({ slide, slot, mediaMap, settings, onOpen, hideWhenEmpty = fa
   const key = `slide-${String(slide.id).padStart(2, '0')}-${slot}`;
   const conventionMedia = useConventionMedia(slide.id, slot);
   const [hasError, setHasError] = useState(false);
+  const [loadedSrc, setLoadedSrc] = useState(null);
+
   const assigned = mediaMap?.[key];
   const media = useMemo(() => {
     if (assigned?.src) {
@@ -199,7 +201,18 @@ function MediaSlot({ slide, slot, mediaMap, settings, onOpen, hideWhenEmpty = fa
 
   useEffect(() => {
     setHasError(false);
-  }, [media?.src]);
+    if (!media?.src || media.type === 'video') {
+      setLoadedSrc(media?.src);
+      return;
+    }
+    const img = new Image();
+    img.src = media.src;
+    if (img.complete) {
+      setLoadedSrc(media.src);
+    } else {
+      img.onload = () => setLoadedSrc(media.src);
+    }
+  }, [media?.src, media?.type]);
 
   if (hasError) {
     if (hideWhenEmpty) return null;
@@ -215,6 +228,7 @@ function MediaSlot({ slide, slot, mediaMap, settings, onOpen, hideWhenEmpty = fa
   const rounded = media.rounded !== false;
   const glow = media.glow || settings?.imageGlow || 'medium';
   const isVideo = media.type === 'video';
+  const displaySrc = loadedSrc || media.src;
 
   return (
     <button
@@ -222,11 +236,12 @@ function MediaSlot({ slide, slot, mediaMap, settings, onOpen, hideWhenEmpty = fa
       className={`media-frame ${rounded ? 'rounded' : ''} glow-${glow} align-${alignment}`}
       onClick={() => onOpen?.(media)}
       title="اضغط لتكبير الوسائط"
+      style={{ transition: 'all 0.3s ease' }}
     >
       {isVideo ? (
         <video src={media.src} autoPlay muted loop playsInline style={{ objectFit: fit }} onError={() => setHasError(true)} />
       ) : (
-        <img src={media.src} alt={media.caption || slide.title} style={{ objectFit: fit }} onError={() => setHasError(true)} />
+        <img src={displaySrc} alt={media.caption || slide.title} style={{ objectFit: fit, transition: 'opacity 0.3s ease' }} onError={() => setHasError(true)} />
       )}
       <span className="media-tint" style={{ opacity: tint }} />
       <span className="media-caption">{media.caption || (isVideo ? 'فيديو توضيحي' : 'صورة توضيحية')}</span>

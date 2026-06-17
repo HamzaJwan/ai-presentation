@@ -231,6 +231,9 @@ export default function MediaManager({
         <div>
           <h2>إدارة الوسائط وإعدادات اللوقو</h2>
           <p>اختر الشريحة، اسحب صورة/فيديو، أو استخدم ملفات public/media وخريطة mediaMap الافتراضية.</p>
+          <p style={{ color: '#ffb86c', fontSize: '0.9em', marginTop: '4px' }}>
+            لأفضل أداء في المسرح، استخدم صور WebP أو JPG بحجم أقل من 2MB وبعرض 1600px تقريبًا.
+          </p>
         </div>
         <button type="button" onClick={onClose}>إغلاق</button>
       </div>
